@@ -4,6 +4,7 @@ import {
     CLEAR_ALL_NOTE,
     EDIT_NOTE,
     UPDATE_NOTE,
+    VIEW_NOTE,
    
   } from "./actionTypes";
   
@@ -51,6 +52,17 @@ import {
         noteDescription:note?.description,
        
       },
+    };
+  };
+
+  export const viewNote = (id) => {
+    return {
+      type: VIEW_NOTE,
+     
+         id,
+        
+       
+      
     };
   };
   

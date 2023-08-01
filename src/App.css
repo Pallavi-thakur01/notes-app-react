@@ -65,6 +65,14 @@
   
 
 }
+[type=search] {
+ 
+   outline-offset: 0px!important; 
+   border-color: rgb(210, 189, 189);
+   /* box-shadow: #61dafb; */
+   padding: 3px;
+   cursor: pointer;
+}
   
 
 
@@ -72,4 +80,7 @@
 
   box-shadow: 5px 6px 6px 2px #e9ecef;
   transform: scale(1.1);
+}
+.searchbarMargin{
+  margin-left: 800px;
 }

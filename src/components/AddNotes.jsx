@@ -68,18 +68,7 @@ export const AddNote = () => {
 
   return (
     <div className="container my-5 py-3  ">
-      {/* <form className="mt-3 mb-2" id="todoForm" onSubmit={onSubmit}>
-        <div className="row" style={{marginLeft:"400px"}}>
-          <div className="col-xl-4"> */}
-      {/* <label >Add Notes</label>
-            <input
-              type="text"
-              name="title"
-              className="form-control mb-2 w-100 "
-              placeholder="Notes "
-              defaultValue={value?.title}
-              onChange={(e) => changeEvent(e)}
-            /> */}
+      
       <nav class="navbar fixed-top navbar-light bg-light border border-danger border-top-0 ">
         <a
           class="navbar-brand"
@@ -90,7 +79,7 @@ export const AddNote = () => {
           Notesnook
         </a>
 
-        <div className="mx-3">
+        <div className="mx-5">
           <button
             type="button"
             onClick={handleShow}
@@ -100,16 +89,19 @@ export const AddNote = () => {
           >
             <BiBookAdd className="NavbarClass fs-1 mx-2" />{" "}
           </button>
+          </div>
           {/* <!-- Modal --> */}
-
+             <div className="searchbarMargin">
           <input
-            class="fs-4 rounded-pill mr-sm-2 mx-2 border border-danger mt-2"
+            class="fs-4 rounded-pill mr-sm-2 mx-2 border border-danger mt-2  focusColor"
             type="search"
             placeholder="Search"
             aria-label="Search"
-          />
-          <GiArchiveResearch className="fs-1 NavbarClass " />
-        </div>
+           
+          /></div>
+        
+      
+        <div className="mx-2"> <GiArchiveResearch className="fs-1 NavbarClass  " /></div>
       </nav>
 
       <Modal show={show} onHide={handleClose}>

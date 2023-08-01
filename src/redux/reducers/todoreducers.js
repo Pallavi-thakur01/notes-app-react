@@ -4,6 +4,7 @@ import {
     
     EDIT_NOTE,
     UPDATE_NOTE,
+    VIEW_NOTE,
     
   } from "../actions/actionTypes";
   
@@ -13,9 +14,7 @@ import {
         id: 1,
         title: "This is first notee",
         description: "Note 1-It is a long established fact that a reader will be distracted by the readable content  English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
-       
-       
-      },
+       },
       {
         id: 2,
         title: "This is second note",
@@ -53,6 +52,13 @@ import {
           ...state,
           notes: newnoteList,
         };
+        case VIEW_NOTE:
+          const newnoteList1 = state.notes.filter((item) => item.id == action.id);
+         
+          return {
+            ...state,
+            notes: newnoteList1,
+          };
   
       case EDIT_NOTE:
         const editNote = action.payload;
