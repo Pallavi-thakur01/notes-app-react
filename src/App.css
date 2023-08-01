@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+ .NavbarClass{
+  text-decoration: none;
+  color: rgb(215, 97, 97);
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(215, 97, 97);
+  opacity: 1; 
+  font-style: italic;
+  padding: 4px;
+}
