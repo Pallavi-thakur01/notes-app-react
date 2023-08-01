@@ -13,6 +13,7 @@ import {
       payload: {
         id: Date.now(),
         title: note?.title,
+        description:note?.description,
         
       },
     };
@@ -24,11 +25,11 @@ import {
     };
   };
   
-  export const clearAllnote = () => {
-    return {
-      type: CLEAR_ALL_NOTE,
-    };
-  };
+  // export const clearAllnote = () => {
+  //   return {
+  //     type: CLEAR_ALL_NOTE,
+  //   };
+  // };
   
   export const editNote = (id) => {
     
@@ -47,17 +48,11 @@ import {
       payload: {
         noteId: id,
         noteTitle: note?.title,
+        noteDescription:note?.description,
        
       },
     };
   };
   
-  // export const marknoteCompleted = (id) => {
-  //   return {
-  //     type: MARK_COMPLETED,
-  //     payload: {
-  //       selectednoteId: id
-  //     }
-  //   }
-  // }
+  
   

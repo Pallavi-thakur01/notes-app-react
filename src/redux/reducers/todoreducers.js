@@ -11,14 +11,16 @@ import {
     notes: [
       {
         id: 1,
-        title: "Note 1-It is a long established fact that a reader will be distracted by the readable content  English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
-        description: "This is first notee",
+        title: "This is first notee",
+        description: "Note 1-It is a long established fact that a reader will be distracted by the readable content  English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
+       
        
       },
       {
         id: 2,
-        title: "Note 2-It is a long established fact that a reader will be distracted by the readable content of  English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
-        description: "This is second noteeeee",
+        title: "This is second note",
+         description    : "Note 2-It is a long established fact that a reader will be distracted by the readable content of  English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
+        
         
       },
       
@@ -30,7 +32,7 @@ import {
   const noteReducer = (state = initialState, action) => {
     switch (action.type) {
       case ADD_NOTE:
-        const { id, title} = action.payload;
+        const { id, title,description} = action.payload;
         return {
           ...state,
           notes: [
@@ -38,9 +40,9 @@ import {
             {
               id: id,
               title: title,
+              description: description,
              
-              // isCompleted: false,
-              // isPending: true,
+              
             },
           ],
           isEdit: action.isEdit,
@@ -70,8 +72,7 @@ import {
         const note = state.notes.find((note) => note?.id === noteId);
         note.title = noteTitle;
         note.description = noteDescription;
-        // note.isCompleted = note?.isCompleted;
-        // note.isPending = note?.isPending;
+       
         notes.push(note);
   
         return {

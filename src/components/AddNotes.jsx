@@ -1,30 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addNewNote, addNewTodo, editNote, updateNote, updateTodo } from "../redux/actions";
-import {MdLibraryAdd} from "react-icons/md";
-import {GoPencil} from "react-icons/go";
-import{GiArchiveResearch} from "react-icons/gi";
-import {BiBookAdd} from "react-icons/bi";
+import {
+  addNewNote, editNote,
+  updateNote,
+  
+} from "../redux/actions";
+import { MdLibraryAdd } from "react-icons/md";
+import { GoPencil } from "react-icons/go";
+import { GiArchiveResearch } from "react-icons/gi";
+import { BiBookAdd } from "react-icons/bi";
+import {TfiWrite} from "react-icons/tfi"
 
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
 
-export const AddTodo = () => {
+export const AddNote = () => {
   const [value, setValue] = useState({});
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const isEdit = useSelector((state) => state.todoReducer.isEdit);
   const editNote = useSelector((state) => state.todoReducer.editNote);
   const [show, setShow] = useState(false);
-  
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
-   
-    editNote && setValue(() => editNote );
+    editNote && setValue(() => editNote);
   }, [editNote]);
 
   const onSubmit = (e) => {
@@ -34,18 +37,20 @@ export const AddTodo = () => {
       setError((error) => ({
         ...error,
         title: "Please enter Something",
+        description:"Notes Missing !!!!!!!!!!1",
       }));
       return;
     }
 
     if (isEdit) {
-      
       dispatch(updateNote(editNote.id, value));
     } else {
       dispatch(addNewNote(value));
     }
-    setValue({ title: "" });
+    setValue({ title: "",description:"" });
     // document.getElementById("todoForm").reset();
+    handleClose();
+   
   };
 
   const changeEvent = (e) => {
@@ -56,6 +61,7 @@ export const AddTodo = () => {
     if (e?.target?.name === "title") {
       setError({
         title: "",
+        description:"",
       });
     }
   };
@@ -65,7 +71,7 @@ export const AddTodo = () => {
       {/* <form className="mt-3 mb-2" id="todoForm" onSubmit={onSubmit}>
         <div className="row" style={{marginLeft:"400px"}}>
           <div className="col-xl-4"> */}
-            {/* <label >Add Notes</label>
+      {/* <label >Add Notes</label>
             <input
               type="text"
               name="title"
@@ -74,50 +80,71 @@ export const AddTodo = () => {
               defaultValue={value?.title}
               onChange={(e) => changeEvent(e)}
             /> */}
-             <nav class="navbar fixed-top navbar-light bg-light">
-    <a class="navbar-brand" href="#" className='fs-3 NavbarClass mx-2 fst-italic'><GoPencil className='fs-3  NavbarClass'/>Notesnook</a>
-   
- 
- <div className='mx-3'>
-     
-     <button type="button" onClick={handleShow} class="btn btn-light border-0 " data-toggle="modal" data-target="#exampleModalLong"><BiBookAdd className='NavbarClass fs-1 mx-2'/> </button>
-   {/* <!-- Modal --> */}
-   
-  
-  
-   
-    <input class="fs-4 rounded-pill mr-sm-2 mx-2 border border-danger mt-2" type="search" placeholder="Search" aria-label="Search"/>
-  <GiArchiveResearch className='fs-1 NavbarClass '/>
-  </div>
-  
-  
+      <nav class="navbar fixed-top navbar-light bg-light border border-danger border-top-0 ">
+        <a
+          class="navbar-brand"
+          href="#"
+          className="fs-3 NavbarClass mx-2 fst-italic"
+        >
+          <GoPencil className="fs-3  NavbarClass" />
+          Notesnook
+        </a>
 
+        <div className="mx-3">
+          <button
+            type="button"
+            onClick={handleShow}
+            class="btn btn-light border-0 "
+            data-toggle="modal"
+            data-target="#exampleModalLong"
+          >
+            <BiBookAdd className="NavbarClass fs-1 mx-2" />{" "}
+          </button>
+          {/* <!-- Modal --> */}
 
+          <input
+            class="fs-4 rounded-pill mr-sm-2 mx-2 border border-danger mt-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <GiArchiveResearch className="fs-1 NavbarClass " />
+        </div>
+      </nav>
 
-  
-  </nav> 
-
-           
-            <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add to Notes</Modal.Title>
+          <Modal.Title><TfiWrite className="NavbarClass"/></Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={onSubmit}>
-            
+          <Form >
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Label>Title</Form.Label>
+        <Form.Control type="text" 
+        defaultValue={value?.title}
+        
+         onChange={(e) => changeEvent(e)}
+         name="title"
+       
+        
+        placeholder="Tittle" />
+      </Form.Group>
             <Form.Group
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Label>Notes</Form.Label>
-              <Form.Control as="textarea" rows={3}  defaultValue={value?.title}
-              onChange={(e) => changeEvent(e)}
-              placeholder="Notes "
-              type="text"
-              name="title"
-              
+              <Form.Control
+                as="textarea"
+                rows={3}
+                defaultValue={value?.description}
+               
+                onChange={(e) => changeEvent(e)}
+                placeholder="Notes "
+                type="text"
+                name="description"
               />
-               <span className="text-danger">{error?.title}</span>
+              <span className="text-danger">{error?.title}</span>
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -125,25 +152,24 @@ export const AddTodo = () => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="danger" onClick={onSubmit}>
-          {isEdit ? "Update" : "Save"}
+          <Button variant="danger" onClick={onSubmit} >
+            {isEdit ? "Update" : "Save"}
           </Button>
         </Modal.Footer>
       </Modal>
-  
-   
-            {/* <span className="text-danger">{error?.title}</span> */}
-          {/* </div> */}
 
-          <div className="col-3 mt-4 ">
-            {/* <button className="btn btn-success mb-2" type="submit">
+      {/* <span className="text-danger">{error?.title}</span> */}
+      {/* </div> */}
+
+      <div className="col-3 mt-4 ">
+        {/* <button className="btn btn-success mb-2" type="submit">
               {" "}
               {isEdit ? "Update" : <MdLibraryAdd/>}{" "}
             </button> */}
-          {/* </div>
+        {/* </div>
         </div>
       </form> */}
-    </div>
+      </div>
     </div>
   );
 };

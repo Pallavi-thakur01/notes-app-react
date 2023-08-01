@@ -1,14 +1,14 @@
 import './App.css';
 import Navbarr from "./components/Navbar"
-import { AddTodo } from './components/AddNotes';
-import { TodoLists } from './components/NotesCard';
+import { AddNote } from './components/AddNotes';
+import { NotesCard } from './components/NotesCard';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 function App() {
   return (
     <div className="App">
       {/* <Navbarr/> */}
-       <AddTodo />
-      <TodoLists />
+       <AddNote />
+      <NotesCard />
     </div>
   );
 }

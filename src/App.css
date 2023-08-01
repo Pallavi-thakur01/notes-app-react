@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  font-style: italic;
+  background-color: wheat;
 }
 
 .App-logo {
@@ -21,7 +23,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: wheat;
 }
 
 .App-link {
@@ -45,4 +47,29 @@
   opacity: 1; 
   font-style: italic;
   padding: 4px;
+}
+
+.cardClass{
+
+  background-color: wheat;
+}
+
+.cardClass1{
+  background-color: rgb(215, 97, 97);
+}
+
+.cards{
+
+  transition: all 0.2s ease;
+  cursor: pointer;
+  
+
+}
+  
+
+
+.cards:hover{
+
+  box-shadow: 5px 6px 6px 2px #e9ecef;
+  transform: scale(1.1);
 }
