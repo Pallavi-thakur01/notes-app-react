@@ -68,7 +68,7 @@ export const NotesCard = () => {
                     >
                       <RiDeleteBin2Line />
                     </button>
-                    {/* <button
+                    <button
                       onClick={() => {
                         handleShow();
                         viewFunction({ todo: todo, type: "view" });
@@ -79,7 +79,7 @@ export const NotesCard = () => {
                       data-target="#exampleModalLong"
                     >
                       <BsEyeFill />
-                    </button> */}
+                    </button>
 
                     <Modal show={show} onHide={handleClose}>
                       <Modal.Header closeButton>
