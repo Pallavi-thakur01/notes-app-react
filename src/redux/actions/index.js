@@ -1,10 +1,13 @@
 import {
     ADD_NOTE,
     DELETE_NOTE,
-    CLEAR_ALL_NOTE,
+    HANDLE_OPEN_MODAL,
+    HANDLE_CLOSE_MODAL,
     EDIT_NOTE,
     UPDATE_NOTE,
     VIEW_NOTE,
+    STORE_NAME_RESET,
+   
    
   } from "./actionTypes";
   
@@ -40,6 +43,7 @@ import {
         id: id,
       },
       isEdit: true,
+      // setShow:true,
     };
   };
   
@@ -55,16 +59,52 @@ import {
     };
   };
 
-  export const viewNote = (id) => {
+  export const viewNote = (i) => {
     return {
       type: VIEW_NOTE,
      
-         id,
+        payload:{
+          i:i,
+
+        }
+        
+       
+      
+    };
+  };
+  export const showModal = () => {
+    return {
+      type: HANDLE_OPEN_MODAL,
+     
+        payload:{
+          isShowModal:true,
+
+        }
+        
+       
+      
+    };
+  };
+
+
+  export const hideModal = () => {
+    return {
+      type: HANDLE_CLOSE_MODAL,
+     
+        payload:{
+          isShowModal:false,
+
+        }
         
        
       
     };
   };
   
-  
+  export const resetStore = () => {
+    return{
+    type: STORE_NAME_RESET,
+  };
+};
+   
   
