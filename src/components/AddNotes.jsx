@@ -18,13 +18,13 @@ import { TfiWrite } from "react-icons/tfi";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import Search from './Search';
 
-const AddNote = () => {
+const AddNote = ({notes}) => {
   const [value, setValue] = useState({});
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const isEdit = useSelector((state) => state.todoReducer.isEdit);
-
   const editNote = useSelector((state) => state.todoReducer.editNote);
   const isShowModal = useSelector((state) => state.todoReducer.isShowModal);
 
@@ -33,13 +33,15 @@ const AddNote = () => {
   const handleShow = () => dispatch(showModal());
 
   useEffect(() => {
-    console.log(isShowModal, "isShowModal");
-    editNote && setValue(() => editNote);
+    // debugger
+  
+    editNote && setValue(() => editNote)&&
+    onSubmit()
   }, [editNote, isShowModal]);
+
 
   const onSubmit = (e) => {
     e.preventDefault();
-
     console.log("jhgfd");
     // handleShow();
     if (!value?.title) {
@@ -52,17 +54,25 @@ const AddNote = () => {
     }
 
     if (isEdit) {
+      // debugger;
       dispatch(updateNote(editNote.id, value));
       setValue({ title: "", description: "" });
+      reset();
     } else {
       dispatch(addNewNote(value));
     }
     setValue({ title: "", description: "" });
 
-    handleClose();
     reset();
+    handleClose();
     // dispatch(resetStore());
+    setValue({
+      title:"",
+      description:""
+    })
   };
+
+  console.log(value);
 
   const changeEvent = (e) => {
     setValue({
@@ -82,7 +92,7 @@ const AddNote = () => {
       <nav class="navbar fixed-top navbar-light bg-light border border-danger border-top-0 ">
         <a
           class="navbar-brand"
-          href="#"
+          href="/"
           className="fs-3 NavbarClass mx-2 fst-italic"
         >
           <GoPencil className="fs-3  NavbarClass" />
@@ -93,23 +103,25 @@ const AddNote = () => {
           <button
             type="button"
             onClick={handleShow}
-            class="btn btn-light border-0 "
+            className="btn btn-light border-0 "
             data-toggle="modal"
             data-target="#exampleModalLong"
           >
-            <BiBookAdd className="NavbarClass fs-1 mx-2" />{" "}
+            <BiBookAdd className="NavbarClass fs-1 mx-2" />
           </button>
         </div>
         {/* <!-- Modal --> */}
         <div className="searchbarMargin">
-          <input
-            class="fs-4 rounded-pill mr-sm-2 mx-2 border border-danger mt-2  focusColor"
+          {/* <input
+            className="fs-4 rounded-pill mr-sm-2 mx-2 border border-danger mt-2  focusColor"
             type="search"
             placeholder="Search"
             aria-label="Search"
-          />
-        </div>
+          /> */}
 
+        <Search todo={notes}/>
+        </div>
+       
         <div className="mx-2">
           {" "}
           <GiArchiveResearch className="fs-1 NavbarClass  " />
@@ -174,7 +186,9 @@ const AddNote = () => {
         </div>
       </form> */}
       </div>
+      
     </div>
+  
   );
 };
 export default AddNote;

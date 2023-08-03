@@ -14,7 +14,10 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.lg{
+  width: 25px;
+  height: 30px;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -39,7 +42,7 @@
   }
 }
  .NavbarClass{
-  text-decoration: none;
+  /* text-decoration: none; */
   color: rgb(215, 97, 97);
 }
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -81,6 +84,4 @@
   box-shadow: 5px 6px 6px 2px #e9ecef;
   transform: scale(1.1);
 }
-.searchbarMargin{
-  margin-left: 800px;
-}
+
