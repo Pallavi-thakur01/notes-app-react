@@ -7,7 +7,7 @@ import {
 import { BiEditAlt } from "react-icons/bi";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import AddNote from "../components/AddNotes";
-import Example from "./viewModal";
+import Example from "../components/viewModal";
 
 export const NotesCard = () => {
   const notes = useSelector((state) => state.todoReducer.notes);

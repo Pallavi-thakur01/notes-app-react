@@ -50,13 +50,13 @@ const noteReducer = (state = initialState, action) => {
         isEdit: action.isEdit,
       };
     case DELETE_NOTE:
-      const newnoteList = state.notes.filter((item) => item.id != action.id);
+      const newnoteList = state.notes.filter((item) => item.id !== action.id);
       return {
         ...state,
         notes: newnoteList,
       };
     case VIEW_NOTE:
-      const newnoteList1 = state.notes.filter((i) => i == action.payload.i);
+      const newnoteList1 = state.notes.filter((i) => i === action.payload.i);
 
       return {
         ...state,
