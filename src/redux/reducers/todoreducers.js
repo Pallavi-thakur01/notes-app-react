@@ -6,7 +6,8 @@ import {
   VIEW_NOTE,
   HANDLE_OPEN_MODAL,
   HANDLE_CLOSE_MODAL,
-  STORE_NAME_RESET,
+  // STORE_NAME_RESET,
+  // TOGGLE_DARKTHEME
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -28,6 +29,8 @@ const initialState = {
   editnoteId: "",
   // setShow:false,
   isShowModal: false,
+  isShowModal1: false,
+  darkThemeEnabled: false,
 };
 
 const noteReducer = (state = initialState, action) => {
@@ -70,16 +73,23 @@ const noteReducer = (state = initialState, action) => {
         ...state,
         isShowModal: action.payload.isShowModal,
       };
-    case STORE_NAME_RESET:
-      return initialState;
+
+    // case TOGGLE_DARKTHEME:
+    //   return { ...state, darkThemeEnabled: !state.action.payload.darkThemeEnabled };
+
+    // case STORE_NAME_RESET:
+    //   return initialState;
 
     case EDIT_NOTE:
       const editNote = action.payload;
       let newEditNote = state?.notes?.find((item) => item?.id === editNote?.id);
+      localStorage.setItem("state", editNote);
       return {
         ...state,
         isEdit: action.isEdit,
         editNote: newEditNote,
+        // editNote:""
+        // notes:""
       };
 
     case UPDATE_NOTE:

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { reset } from "redux-form";
+
 import {
   addNewNote,
   editNote,
@@ -20,6 +20,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
 const AddNote = () => {
+ 
   const [value, setValue] = useState({});
   const [error, setError] = useState("");
   const dispatch = useDispatch();
@@ -34,10 +35,16 @@ const AddNote = () => {
 
   useEffect(() => {
     console.log(isShowModal, "isShowModal");
-    editNote && setValue(() => editNote);
+    // editNote && setValue(() => editNote) ;
+    if (editNote) {
+      setValue(() => editNote);
+    } else {
+      setValue({});
+    }
   }, [editNote, isShowModal]);
-
+  
   const onSubmit = (e) => {
+    console.log("jhgfdxc");
     e.preventDefault();
 
     console.log("jhgfd");
@@ -55,12 +62,23 @@ const AddNote = () => {
       dispatch(updateNote(editNote.id, value));
       setValue({ title: "", description: "" });
     } else {
+      setValue({});
+
       dispatch(addNewNote(value));
+      setValue({ title: "", description: "" });
     }
-    setValue({ title: "", description: "" });
+    //  setValue({ title: "", description: "" });
+    //  function reset() {
+
+    //   setValue({ title: "", description: "" });
+
+    // }
+    //  reset();
 
     handleClose();
-    reset();
+
+    // setValue();
+
     // dispatch(resetStore());
   };
 
@@ -79,6 +97,7 @@ const AddNote = () => {
 
   return (
     <div className="container my-5 py-3  ">
+      ,
       <nav class="navbar fixed-top navbar-light bg-light border border-danger border-top-0 ">
         <a
           class="navbar-brand"
@@ -92,7 +111,9 @@ const AddNote = () => {
         <div className="mx-5">
           <button
             type="button"
-            onClick={handleShow}
+            onClick={() => {
+              handleShow();
+            }}
             class="btn btn-light border-0 "
             data-toggle="modal"
             data-target="#exampleModalLong"
@@ -115,7 +136,6 @@ const AddNote = () => {
           <GiArchiveResearch className="fs-1 NavbarClass  " />
         </div>
       </nav>
-
       <Modal show={isShowModal} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>
@@ -161,19 +181,7 @@ const AddNote = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-
-      {/* <span className="text-danger">{error?.title}</span> */}
-      {/* </div> */}
-
-      <div className="col-3 mt-4 ">
-        {/* <button className="btn btn-success mb-2" type="submit">
-              {" "}
-              {isEdit ? "Update" : <MdLibraryAdd/>}{" "}
-            </button> */}
-        {/* </div>
-        </div>
-      </form> */}
-      </div>
+      <div className="col-3 mt-4 "></div>
     </div>
   );
 };
