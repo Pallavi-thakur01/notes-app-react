@@ -44,7 +44,7 @@ export const NotesCard = () => {
                   <h6 class="card-title focusColor"> {todo?.description}</h6>
                 
                   <div class="card-text row mt-3 ">
-                    {/* <p>{todo?.description}</p> */}{" "}
+                   
                     <div className="col p-1 cardClass shadow rounded-pill sticky-bottom">
                       <button
                         type="button"
