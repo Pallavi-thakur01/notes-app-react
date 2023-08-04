@@ -6,6 +6,7 @@ import {
   EDIT_NOTE,
   UPDATE_NOTE,
   VIEW_NOTE,
+  SEARCH_BAR,
 } from "./actionTypes";
 
 export const addNewNote = (note) => {
@@ -22,6 +23,13 @@ export const deleteNote = (id) => {
   return {
     type: DELETE_NOTE,
     id,
+  };
+};
+export const searchBar = (valuee) => {
+  return {
+    type: SEARCH_BAR,valuee
+   
+   
   };
 };
 

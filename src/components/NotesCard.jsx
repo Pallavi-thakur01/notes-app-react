@@ -1,20 +1,23 @@
-import React from "react";
+import React,{useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   deleteNote,
   editNote,
-  showModal,} from "../redux/actions";
+  showModal,searchBar} from "../redux/actions";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import AddNote from "../components/AddNotes";
 import Example from "../components/viewModal";
 
 export const NotesCard = () => {
+  var [date,setDate] = useState(new Date());
   const notes = useSelector((state) => state.todoReducer.notes);
 
   const dispatch = useDispatch();
 
   const handleShow = () => dispatch(showModal());
+  const searchBarr= () =>dispatch(searchBar());
+
 
   const actionFunction = (data) => {
     if (data && data?.type === "edit") {
@@ -30,19 +33,26 @@ export const NotesCard = () => {
 
   return (
     <>
-      <AddNote />
+      <AddNote  />
       <div className="container my-2 ">
         <div class="row">
-          {notes &&
-            notes.map((todo, index) => (
+          { notes && 
+
+
+              
+
+
+           notes .map((todo, index) => (
               <div
                 class="card col-3 m-5 w-25 border border-danger rounded shadow  cards "
                 key={index}
               >
-                <div class="card-body">
-                  <h4 className="my-2 focusColor">Title:{todo?.title}</h4>
-                  <h6 class="card-title focusColor"> {todo?.description}</h6>
+                <div class="card-body ">
                 
+                  <h4 className="my-2 focusColor">Title:{todo?.title}</h4>
+                  <h6 class="card-title focusColor p-2"> {todo?.description}</h6>
+                 
+            
                   <div class="card-text row mt-3 ">
                    
                     <div className="col p-1 cardClass shadow rounded-pill sticky-bottom">
@@ -71,7 +81,17 @@ export const NotesCard = () => {
                       {/* <!-- Modal --> */}
                     </div>
                   </div>
+                   
                 </div>
+
+                <div className="row">
+                    <div className="col">
+                <p> Time : {date.toLocaleTimeString()}</p>
+                </div>
+                <div className="col">
+            <p> Date : {date.toLocaleDateString()}</p>
+            </div>
+            </div>
               </div>
             ))}
         </div>

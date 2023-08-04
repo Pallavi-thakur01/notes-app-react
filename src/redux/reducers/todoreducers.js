@@ -6,21 +6,25 @@ import {
   VIEW_NOTE,
   HANDLE_OPEN_MODAL,
   HANDLE_CLOSE_MODAL,
+  SEARCH_BAR,
   // STORE_NAME_RESET,
   // TOGGLE_DARKTHEME
 } from "../actions/actionTypes";
 
 const initialState = {
+  
   notes: [
     {
       id: 1,
       title: "This is first notee",
+      time:"",
       description:
         "Note 1-It is a long established fact that a reader will be distracted by the readable content  English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
     },
     {
       id: 2,
       title: "This is second note",
+      time:"",
       description:
         "Note 2-It is a long established fact that a reader will be distracted by the readable content of  English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
     },
@@ -36,7 +40,7 @@ const initialState = {
 const noteReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_NOTE:
-      const { id, title, description } = action.payload;
+      const { id, title, description,time } = action.payload;
       return {
         ...state,
         notes: [
@@ -45,6 +49,7 @@ const noteReducer = (state = initialState, action) => {
             id: id,
             title: title,
             description: description,
+            time:time,
           },
         ],
         isEdit: action.isEdit,
@@ -91,7 +96,16 @@ const noteReducer = (state = initialState, action) => {
         // editNote:""
         // notes:""
       };
-
+      case SEARCH_BAR:
+        const {valuee} = action.payload;
+      const filterNotes = state.notes.filter((val) => val.description.includes(valuee));
+      console.log(filterNotes,"hhhhhhh")
+      return {...state, valuee, filterNotes};
+      console.log(filterNotes)
+     
+        
+        
+        
     case UPDATE_NOTE:
       const { noteId, noteTitle, noteDescription } = action.payload;
       const notes = state.notes.filter((note) => {

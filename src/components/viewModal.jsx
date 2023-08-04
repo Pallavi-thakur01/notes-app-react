@@ -12,7 +12,7 @@ function Example({todo}) {
 
   return (
     <>
-      <Button  onClick={handleShow} className="btn btn-light btn-sm ml-5  mx-2 ">
+      <Button  onClick={handleShow} className="btn btn-light btn-sm ml-5  mx-1 ">
       <BsEyeFill />
       </Button>
 

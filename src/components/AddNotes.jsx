@@ -8,6 +8,7 @@ import {
   showModal,
   updateNote,
   resetStore,
+  searchBar
 } from "../redux/actions";
 import { MdLibraryAdd } from "react-icons/md";
 import { GoPencil } from "react-icons/go";
@@ -23,26 +24,71 @@ const AddNote = () => {
  
   const [value, setValue] = useState({});
   const [error, setError] = useState("");
+  var [date,setDate] = useState(new Date());
+  // const [SearchBar, setSearchBar] = useState("");
   const dispatch = useDispatch();
   const isEdit = useSelector((state) => state.todoReducer.isEdit);
 
-  const editNote = useSelector((state) => state.todoReducer.editNote);
+  const editNotes = useSelector((state) => state?.todoReducer?.editNote);
   const isShowModal = useSelector((state) => state.todoReducer.isShowModal);
 
   const handleClose = () => dispatch(hideModal());
 
-  const handleShow = () => dispatch(showModal());
+  const handleShow = () =>{ setValue({ title: "", description: "" });dispatch(showModal())};
+  const searchBarr= () =>dispatch(searchBar());
+ 
+  const valuee = useSelector((state) => state.todoReducer.valuee);
+  console.log(valuee,"valllll")
+
+  useEffect(() => {
+    var timer = setInterval(()=>setDate(new Date()), 1000 )
+    return function cleanup() {
+        clearInterval(timer)
+    }
+
+});
+
+
+// if(editNote){}
 
   useEffect(() => {
     console.log(isShowModal, "isShowModal");
-    // editNote && setValue(() => editNote) ;
-    if (editNote) {
-      setValue(() => editNote);
-    } else {
-      setValue({});
-    }
-  }, [editNote, isShowModal]);
+    // if(!editNote){
+    //   setValue({ title: "", description: "" });
+
+    // }
+    // // editNote && setValue(() => editNote) ;
+    // // 
+    // else {
+    //   editNote && setValue(() => {editNote;
+    //     setValue({ title: "", description: "" });
+
+      
+    //   }) ;
+     
+    //   // setValue({ title: "", description: "" });
+    // }
+console.log("----editNote",editNote)  
+
+    editNotes? setValue(() => editNotes) : setValue({ title: "", description: "" });
+  }, [editNotes,isShowModal]);
+
+
+
+
+
+
+
+
+ useEffect(() => {
+  setValue({ title: "", description: "" });
+    // setValue(JSON.parse(window.localStorage.getItem("Notes")));
+      }, []); 
+
+
+ 
   
+    
   const onSubmit = (e) => {
     console.log("jhgfdxc");
     e.preventDefault();
@@ -59,15 +105,17 @@ const AddNote = () => {
     }
 
     if (isEdit) {
-      dispatch(updateNote(editNote.id, value));
+      dispatch(updateNote(editNotes.id, value));
+      dispatch(editNote());
+
       setValue({ title: "", description: "" });
     } else {
-      setValue({});
+      // setValue({});
 
       dispatch(addNewNote(value));
-      setValue({ title: "", description: "" });
+      // setValue({ title: "", description: "" });
     }
-    //  setValue({ title: "", description: "" });
+      setValue({ title: "", description: "" });
     //  function reset() {
 
     //   setValue({ title: "", description: "" });
@@ -76,6 +124,16 @@ const AddNote = () => {
     //  reset();
 
     handleClose();
+   
+      localStorage.setItem("Notes", JSON.stringify(value));
+   
+    
+    
+      // const data = JSON.parse(localStorage.getItem("Notes"));
+      // if (data) {
+      //   setValue(data);
+      // }
+     
 
     // setValue();
 
@@ -96,46 +154,66 @@ const AddNote = () => {
   };
 
   return (
-    <div className="container my-5 py-3  ">
-      ,
-      <nav class="navbar fixed-top navbar-light bg-light border border-danger border-top-0 ">
+   <>
+     <div className="container mb-5 py-1">
+     
+      
+      <nav class="navbar fixed-top navbar-light bg-light border border-danger border-top-0 row  ">
+     <div className="col-md-3">
         <a
           class="navbar-brand"
           href="#"
-          className="fs-3 NavbarClass mx-2 fst-italic"
+          className="fs-3 NavbarClass  fst-italic"
         >
           <GoPencil className="fs-3  NavbarClass" />
           Notesnook
         </a>
+        
+        
+       
 
-        <div className="mx-5">
+        
           <button
             type="button"
             onClick={() => {
+              setValue({ title: "", description: "" });
               handleShow();
+            //   setValue({ title: "", description: "" });
             }}
-            class="btn btn-light border-0 "
+            class="btn btn-light border-0 mx-5"
             data-toggle="modal"
             data-target="#exampleModalLong"
           >
-            <BiBookAdd className="NavbarClass fs-1 mx-2" />{" "}
+            <BiBookAdd className="NavbarClass fs-1" />{" "}
           </button>
-        </div>
-        {/* <!-- Modal --> */}
-        <div className="searchbarMargin">
+          
+          </div>
+        
+        <div className="col-md-5"></div>
+        
+      
+        <div className="col-md-3 ">
           <input
-            class="fs-4 rounded-pill mr-sm-2 mx-2 border border-danger mt-2  focusColor"
+            class="fs-4 rounded-pill  border border-danger focusColor focusColor1"
             type="search"
             placeholder="Search"
             aria-label="Search"
+           
+            onChange={(e) => searchBarr(e.target.value)}
+            value={valuee}
           />
         </div>
 
-        <div className="mx-2">
+
+        <div className="col-md-1">
           {" "}
           <GiArchiveResearch className="fs-1 NavbarClass  " />
         </div>
-      </nav>
+        
+        
+        </nav>
+        </div>
+     
       <Modal show={isShowModal} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>
@@ -153,7 +231,12 @@ const AddNote = () => {
                 name="title"
                 placeholder="Tittle"
               />
+              
             </Form.Group>
+           
+            
+            {/* <p> Time : {date.toLocaleTimeString()}</p>
+            <p> Date : {date.toLocaleDateString()}</p> */}
             <Form.Group
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
@@ -181,8 +264,9 @@ const AddNote = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <div className="col-3 mt-4 "></div>
-    </div>
+    
+      </>
+    
   );
 };
 export default AddNote;
